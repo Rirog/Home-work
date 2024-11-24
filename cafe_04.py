@@ -44,9 +44,8 @@ class DeliveryOrder(Order):
                 f"Блюда: {', '.join(self.dishes) if self.dishes else 'Нет'}\n"
                 f"Статус: {self.status}")
 
-# Глобальные переменные
 orders = []
-# Функции для взаимодействия через терминал
+
 def create_order():
     """Создает новый заказ (обычный или доставку)."""
     order_counter = 1
