@@ -1,4 +1,6 @@
 """Упрпавление заказами"""
+
+
 class Order:
     """Класс для представления обычного заказа."""
     def __init__(self, order_number, dishes=None, status="Создан"):
@@ -9,12 +11,14 @@ class Order:
     def add_dishes(self, new_dishes):
         """Добавляет блюда в заказ."""
         self.dishes.extend(new_dishes)
-        print(f"Блюда добавлены в заказ №{self.order_number}: {', '.join(new_dishes)}.")
+        print(f"Блюда добавлены в заказ №{self.order_number}:"
+              f"{', '.join(new_dishes)}.")
 
     def update_status(self, new_status):
         """Обновляет статус заказа."""
         self.status = new_status
-        print(f"Статус заказа №{self.order_number} обновлен на: {self.status}.")
+        print(f"Статус заказа №{self.order_number}"
+              f"обновлен на: {self.status}.")
 
     def get_info(self):
         """Возвращает информацию о заказе."""
@@ -23,9 +27,15 @@ class Order:
                 f"Блюда: {', '.join(self.dishes) if self.dishes else 'Нет'}\n"
                 f"Статус: {self.status}")
 
+
 class DeliveryOrder(Order):
     """Класс для представления заказа с доставкой."""
-    def __init__(self, order_number, address, delivery_time, dishes=None, status="Создан"):
+    def __init__(self,
+                 order_number,
+                 address,
+                 delivery_time,
+                 dishes=None,
+                 status="Создан"):
         super().__init__(order_number, dishes, status)
         self.address = address
         self.delivery_time = delivery_time
@@ -33,7 +43,8 @@ class DeliveryOrder(Order):
     def update_delivery_status(self, new_status):
         """Обновляет статус доставки."""
         self.status = new_status
-        print(f"Статус доставки для заказа №{self.order_number} обновлен на: {self.status}.")
+        print(f"Статус доставки для заказа №{self.order_number}"
+              f"обновлен на: {self.status}.")
 
     def get_info(self):
         """Возвращает информацию о заказе на доставку."""
@@ -44,7 +55,9 @@ class DeliveryOrder(Order):
                 f"Блюда: {', '.join(self.dishes) if self.dishes else 'Нет'}\n"
                 f"Статус: {self.status}")
 
+
 orders = []
+
 
 def create_order():
     """Создает новый заказ (обычный или доставку)."""
@@ -66,6 +79,7 @@ def create_order():
 
     order_counter += 1
 
+
 def add_dishes_to_order():
     """Добавляет блюда в заказ."""
     order_number = int(input("Введите номер заказа: "))
@@ -76,6 +90,7 @@ def add_dishes_to_order():
             order.add_dishes(dish_list)  # Используем метод из класса
             return
     print("Заказ не найден.")
+
 
 def show_order_info():
     """Отображает информацию о заказе."""
@@ -126,13 +141,13 @@ def main():
     """меню"""
     while True:
         print("\nМеню:"
-        "\n1. Создать заказ"
-        "\n2. Добавить блюда в заказ"
-        "\n3. Показать информацию о заказе"
-        "\n4. Изменить статус заказа"
-        "\n5. Показать все заказы"
-        "\n6. Удалить заказ"
-        "\n0. Выйти")
+              "\n1. Создать заказ"
+              "\n2. Добавить блюда в заказ"
+              "\n3. Показать информацию о заказе"
+              "\n4. Изменить статус заказа"
+              "\n5. Показать все заказы"
+              "\n6. Удалить заказ"
+              "\n0. Выйти")
 
         choice = input("Ваш выбор: ")
 
@@ -154,6 +169,6 @@ def main():
         else:
             print("Неверный выбор. Попробуйте снова.")
 
-# Запуск программы
+
 if __name__ == "__main__":
     main()
