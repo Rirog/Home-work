@@ -98,3 +98,4 @@ def get_student(student_id: int):
         "grades": student["grades"],
         "thesis_topic": student["thesis_topic"],
     }
+
