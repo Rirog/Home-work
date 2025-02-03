@@ -1,11 +1,11 @@
 """13 DZ"""
-from typing import Union, Dict
+from typing import Union, Optional
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI()
 
+app = FastAPI()
 
 
 class Person(BaseModel):
@@ -16,25 +16,28 @@ class Person(BaseModel):
 
 class Student(Person):
     """Класс Student, наследуемый от класса Person"""
-    grades: list[int] = []
+    grades: Optional[list[int]] = []
 
 
-class GraduateStudent(Person):
-    """Класс Student, наследуемый от Person"""
-    thesis_topic: str
+class GraduateStudent(Student):
+    """Класс GraduateStudent, наследуемый от Person"""
+    thesis_topic: Optional[str] = None
 
 
 students = {}
 
 
-@app.post("/students/")
+def avarage_grare(student: Union[Student, GraduateStudent]):
+    gerde = sum(student.grades) / len(student.grades) if isinstance(student, Student) and student.grades else 0
+    return gerde
+
+
+@app.post("/students/", response_model=dict)
 async def create_student(student: Union[Student, GraduateStudent]):
     """Создает нового студента"""
     student_id = len(students) + 1
     students[student_id] = student
-
     return {"id": student_id, "message": "Student added successfully"}
-
 
 
 @app.put("/students/{student_id}/grades/")
@@ -42,30 +45,20 @@ async def add_grade(student_id: int, grade: int):
     """Добавляет оценку студенту"""
     if student_id not in students:
         return {"error": "Student not found"}
+    if isinstance(students[student_id], GraduateStudent):
+        raise HTTPException(status_code=400,
+                            detail="error: A graduate cannot be given a grade")
+    
     students[student_id].grades.append(grade)
     return {"message": "Grade added successfully"}
-
 
 
 @app.get("/students/")
 async def get_students_sorted_by_average_grade():
     """Возращает список студентов, отсортированных по средней оценке"""
-    student: Union[Student, GraduateStudent]
-    sorted_students = sorted(
-        students.values(),
-       key=lambda student: (
-            sum(student.grades) / len(student.grades) if isinstance(student, Student) and student.grades else 0
-        ),
-        reverse=True,
-    )
+    sorted_students = sorted(students.values(),
+                             key=avarage_grare,
+                             reverse=True)
 
-    return [ student.dict()
-        for student in sorted_students]
-
-
-
-@app.get("/students/{student_id}")
-async def get_student(student_id: int):
-    """Возвращение информации о студенте"""
-    student: Union[Student, GraduateStudent] = students[student_id]
-    return student.model_dump()
+    return [student.dict()
+            for student in sorted_students]
