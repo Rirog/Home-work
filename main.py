@@ -28,8 +28,7 @@ students = {}
 
 
 def avarage_grare(student: Union[Student, GraduateStudent]):
-    gerde = sum(student.grades) / len(student.grades) if isinstance(student, Student) and student.grades else 0
-    return gerde
+    return sum(student.grades) / len(student.grades) if isinstance(student, Student) and student.grades else 0
 
 
 @app.post("/students/", response_model=dict)
@@ -48,7 +47,6 @@ async def add_grade(student_id: int, grade: int):
     if isinstance(students[student_id], GraduateStudent):
         raise HTTPException(status_code=400,
                             detail="error: A graduate cannot be given a grade")
-    
     students[student_id].grades.append(grade)
     return {"message": "Grade added successfully"}
 
