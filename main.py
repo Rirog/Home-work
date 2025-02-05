@@ -32,24 +32,8 @@ students = {}
 @app.post("/students/")
 def create_student(student: Union[Student, GraduateStudent]):
     """Создает нового студента"""
-    student_id_counter = 1
-    student_id = student_id_counter
-    student_id_counter += 1
-
-    if isinstance(student, GraduateStudent):
-        students[student_id] = {
-            "name": student.name,
-            "age": student.age,
-            "grades": [],
-            "thesis_topic": student.thesis_topic,
-        }
-    else:
-        students[student_id] = {
-            "name": student.name,
-            "age": student.age,
-            "grades": student.grades,
-            "thesis_topic": None,
-        }
+    student_id = len(students) + 1
+    students[student_id] = student
 
     return {"id": student_id, "message": "Student added successfully"}
 
