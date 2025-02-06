@@ -57,7 +57,7 @@ class Book:
     @availability.setter
     def availability(self, new_availability):
         self.__availability = new_availability
-    
+
 
     def display_info(self):
         """Выводит информацию о книге."""
