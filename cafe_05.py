@@ -109,7 +109,7 @@ def update_order_status():
                 order.update_status(new_status)
             return
     print("Заказ не найден.")
-orders.clear()
+
 
 def show_all_orders():
     """Показывает все заказы."""
