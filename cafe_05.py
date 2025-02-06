@@ -3,12 +3,15 @@
 
 class Order:
     """Класс для представления обычного заказа."""
-    def __init__(self, order_number, type_order, list_dishes=None, status="Создан"):
+    def __init__(self,
+                 order_number,
+                 type_order,
+                 list_dishes=None,
+                 status="Создан"):
         self.order_number = order_number
         self.type_order = type_order
         self.list_dishes = list_dishes if list_dishes else []
         self.status = status
-
 
     def add_dishes(self, new_dishes):
         """Добавляет блюда в заказ."""
@@ -16,13 +19,11 @@ class Order:
         print(f"\nБлюда добавлены в заказ №{self.order_number}:"
               f"{', '.join(new_dishes)}.")
 
-
     def update_status(self, new_status):
         """Обновляет статус заказа."""
         self.status = new_status
         print(f"\nСтатус заказа №{self.order_number}"
               f"обновлен на: {self.status}.")
-
 
     def display_info(self):
         """Метод для вывода информации о обычносм заказе"""
@@ -34,11 +35,16 @@ class Order:
 
 class DeliveryOrder(Order):
     """Наследование класса Order для доставки"""
-    def __init__(self, order_number, type_order,address , time, list_dishes=None, status="Создан"):
+    def __init__(self,
+                 order_number,
+                 type_order,
+                 address,
+                 time,
+                 list_dishes=None,
+                 status="Создан"):
         super().__init__(order_number, type_order, list_dishes, status)
         self.address = address
         self.time = time
-
 
     def update_delivery_status(self, new_status):
         """Обновляет статус доставки."""
@@ -46,11 +52,10 @@ class DeliveryOrder(Order):
         print(f"Статус доставки для заказа №{self.order_number}"
               f"обновлен на: {self.status}.")
 
-
     def display_info(self):
         super().display_info()
         print(f"Адрес: {self.address};"
-                f"\nВремя: {self.time};")
+              f"\nВремя: {self.time};")
 
 
 orders = []
