@@ -104,7 +104,7 @@ def add_grade():
     for student in students:
         if student.name == name:
             grade = float(input("Введите оценку: "))
-            grade = student + grade
+            student + grade
             print("Оценка добавлена!\n")
             return
     print("Студент не найден!\n")
