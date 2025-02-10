@@ -34,15 +34,15 @@ class Student(Person):
 
     def display_info(self):
         print(
-            f"\nName: {self.name}."
-            f"\nAge: {self.age},"
+            f"\nName: {self.name}"
+            f"\nAge: {self.age}"
             f"\nAverage_grade: {self.average_grade(self.grades): .2f}"
             )
 
     def __str__(self):
         return (
-            f"\nName: {self.name}."
-            f"Age: {self.age},"
+            f"\nName: {self.name}, "
+            f"Age: {self.age}, "
             f"Average_grade: {self.average_grade(self.grades): .2f}"
             )
 
@@ -70,7 +70,7 @@ class GraduateStudent(Student):
 
     def __str__(self):
         super().__str__()
-        return f"Topic: {self.topic}"
+        return f", Topic: {self.topic}"
 
     @staticmethod
     def total_students():
