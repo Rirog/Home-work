@@ -13,7 +13,7 @@ class Person(ABC):
 
     @abstractmethod
     def display_info(self):
-        pass
+        """Создание абстрактного метода"""
 
 
 class Student(Person):
